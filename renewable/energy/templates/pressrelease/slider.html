@@ -1,0 +1,192 @@
+{% extends 'talks/base.html' %}
+{% load staticfiles%}
+<!-- .header-bottom-wrapper -->
+{% block content %}
+<div class="header-bottom-wrapper">
+  <div class="container">
+
+    <!-- .quote -->
+    <div class="quote">
+      <blockquote>
+        <p>Look deep into nature, and then you will understand everything better.</p>
+                        <span class="author"><span class="line left"></span>ALBERT EINSTEIN<span class="line right"></span></span>
+        <!--span class="author"><span class="line left"></span>HAMILTON FISH<span class="line right"></span></span-->
+      </blockquote>
+    </div>
+    <!-- End of .quote -->
+
+    <div class="row">
+
+      <div class="col-lg-12">
+
+        <div class="home-flexslider variation-3">
+
+          <!-- Slider -->
+          <div class="flexslider">
+
+            <div class="flex-viewport">
+              <ul class="slides">
+                {% for slider_phto in slider_photo %}
+                <li>
+                  <div class="slide-image">
+                    <a href="{{pressrelease.cntent.url}}" title="{{pressrelease.title}}">
+                      <img height=100% src="{{slider_phto.image.url}}" alt="alt text for release 1" draggable="false">
+                    </a>
+                  </div>
+
+                  <div class="slide-description" style="padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+                    <h2 class="title">{{slider_phto.title}}</h2>
+                    <p style="color: white;">{{slider_phto.caption}}</p>
+                  </div>
+                </li>
+                {% endfor %}
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- blog-items -->
+
+<div class="blog-items">
+
+
+
+    <div class="container">
+
+
+
+        <div class="row">
+
+
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                <figure>
+
+                    <a title="Featured Dolor Ipsum Post" href="/">
+
+                        <img alt="post-featured" src="{% static 'images/quote.jpg' %}" width="354" height="144"  >
+
+                    </a>
+
+                   
+
+                </figure>
+
+            </div>
+
+
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                <figure>
+
+                    <a title="Sample Image Post" href="#">
+
+                        <img alt="3rd-post"  src="{% static 'images/ecology.jpeg' %}" width="354" height="144"  >
+
+                    </a>
+
+                  
+
+                </figure>
+
+            </div>
+
+
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                <figure>
+
+                    <a title="Sample Post with Gallery Post Format" href="#">
+
+                        <img alt="4th-gallery-image"  src="{% static 'images/solar.jpg' %}"  width="354" height="144"    >
+
+                    </a>
+
+                   
+
+                </figure>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div><!-- End of .blog-items -->
+
+
+<!-- talks starts -->
+<div class="page-container container">
+
+        <div class="row">
+
+ <div role="main" class="main col-lg-8 col-md-8">
+
+<div class="row post-grid-2-col">
+{% for talk in talks %}
+
+    <div class="col-lg-6 col-md-6  col-sm-6  col-xs-6">
+
+<figure>
+<br>
+                            <a title="{{talk.title}}" href="#">
+
+<img src="{{ talk.upload_image.url }}" class="candidate-image wp-post-image" alt="{{talk.title}}" width="100%" height="250px" />
+
+       </a>
+
+                        </figure>
+
+    <div class="post-meta clearfix" style="background-color: #e8e9ef;padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+<center><h4 class="post-title" style="font-size:21px; font-weight: 700;align="center";" ><a href="#">{{talk.title|truncatechars_html:28}}</a></h4></center>
+                                <center><span>By</span> <a rel="author" title="Uploader" href="#">{{talk.uploader}}</a></center>
+
+
+
+
+                                <br>
+<a href="{% url 'talk_part' pk=talk.pk %}">Comments: {{ talk.approved_comments.count }}</a>
+<br>
+                                <p>{{talk.content|truncatechars:105}}</p>
+<a class="pp-btn grey" href="{% url 'talk_part' pk=talk.pk %}">Read More</a>
+                            </div><!-- end of post meta -->
+
+                </div>
+
+{% endfor %}
+</div>
+</div>
+
+<!-- start of sidebar -->
+        <aside role="complementary" class="col-lg-4 col-md-4 sidebar">
+
+                        
+<section class="main col-lg-14 col-md-14">
+{% comment  %}
+<a height=520px  class="twitter-timeline" href="https://twitter.com/iiit_hyderabad">Tweets by iiit_hyderabad</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+{% endcomment  %}
+<a height=520px  class="twitter-timeline" href="https://twitter.com/newenergy_blog">Tweets Related To Renewable Energy</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+
+<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FRenewableEnergyWorldMag%2F&tabs=timeline&width=350&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="350" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+        
+</aside><!-- end of sidebar -->
+</div>
+</div>
+
+
+
+
+
+
+  {% endblock %}

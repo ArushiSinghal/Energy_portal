@@ -1,0 +1,51 @@
+{% extends 'talks/base.html' %}
+{% load staticfiles %}
+{% comment %}
+ {% block extrastyles %}
+        <title>Google scrapped news</title>
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+       <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'mail_template/talks.css' %}">
+   {% endblock %}
+{% endcomment %}
+{% block content %}
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">Google News</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div>
+  <div class="page-container container">
+
+        <div class="row">
+  
+
+            {% for fee in feedsend_list %}
+<img src="{{ fee.imageurl }}" class="alignleft candidate-image wp-post-image" alt="#" width="100px" height="100px" />
+
+ <div class="post-content-wrapper clearfix">
+            
+<p><strong>Title: </strong>{{fee.title}} </p>
+            <p><strong>URL: </strong><a href="{{fee.original_url}}">{{fee.original_url}}</a> </p>
+<p><strong>PUBLICATION DATE: </strong>{{fee.pubdate}} </p>
+<p><strong>IMAGE URL: </strong><a href="{{fee.imageurl}}" >{{fee.imageurl}}</a></p>
+<p><strong>Description: </strong>{{fee.description}} </p>
+<p><strong>PUBLISHED By: </strong>{{fee.pub_agency}} </p>
+</div>
+<br>
+<br>
+{% endfor %}
+
+    
+    </div>
+    </div>
+
+{% endblock %}
+

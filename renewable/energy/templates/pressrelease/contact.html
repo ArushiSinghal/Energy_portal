@@ -1,0 +1,75 @@
+{% extends 'talks/base.html' %}
+
+{% load staticfiles%}
+<!-- .header-bottom-wrapper -->
+{% block content %}
+<!-- .header-bottom-wrapper -->
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">Contact</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div><!-- End of .header-bottom-wrapper -->
+
+<!-- page-container -->
+<div class="page-container container">
+
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+            <!-- contact-form -->
+            <section id="contact-form">
+
+                <div class="content-wrap">
+                    <h4 class="form-heading">To send your general questions or comments, please use contact form.</h4>
+                </div>
+
+                <form class="contact-form" method="post" action="pressrelease/contact_form_handler.php">
+
+                    <p>
+                        <label for="name">Your Name</label>
+                        <input type="text" name="name" id="name" class="required" title="* Please provide your name">
+                    </p>
+
+                    <p>
+                        <label for="email">Your Email</label>
+                        <input type="text" name="email" id="email" class="email required" title="* Please provide a valid email address">
+                    </p>
+
+                    <p>
+                        <label for="subject">Subject</label>
+                        <input type="text" name="subject" id="subject">
+                    </p>
+
+                    <p>
+                        <label for="comment">Your Message</label>
+                        <textarea name="message" id="comment" class="required" title="* Please provide your message"></textarea>
+                    </p>
+
+                    <p>
+                        <input type="submit" value="Send Message" id="submit" class="pp-btn" name="submit">
+                        <img src="images/ajax-loader.gif" id="contact-loader" alt="Loading...">
+                        <input type="hidden" name="action" value="send_message">
+                        <input type="hidden" name="target" value="pressportal18@gmail.com">
+                    </p>
+
+                </form>
+
+                <div class="error-container"></div>
+                <div id="message-sent">&nbsp;</div>
+
+            </section><!-- #contact-form -->
+        </div>
+
+
+    </div>
+
+</div><!-- End of .page-container -->
+
+{% endblock %}

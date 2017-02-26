@@ -1,0 +1,75 @@
+{% extends 'talks/base.html' %}
+
+{% block content %}
+<!-- .header-bottom-wrapper -->
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">Gallery</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div><!-- End of .header-bottom-wrapper -->
+
+<!-- page-container -->
+<div class="page-container container">
+ 
+    <!-- Gallery Filter -->
+
+    <div id="gallery-container">
+        <div class="row gallery-4-columns isotope clearfix">
+           
+            {% for photo in pics %}
+            <div class="gallery-item isotope-item issues  col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <figure>
+                    <a class="zoom swipebox" href="{{photo.image.url}}" title="{{photo.title}}"></a>
+                    <div class="media_container"></div>
+                    <img src="{{photo.image.url}}" alt="{{photo.title}}" width="346px" height="200px">
+                </figure>
+            </div>
+        {% endfor %}
+
+        		
+        </div>
+
+
+    </div>
+
+
+<!-- NewCode For Pagination -->
+<!-- Replace your variables with "pics" -->
+
+
+   <div style="width: 7%; margin: 0px auto;">
+<nav aria-label="...">
+  <ul class="pagination pagination-lg">
+   
+     {% if pics.has_previous %}
+      <li class="page-item">
+      <a class="page-link" href="?page={{ pics.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+      </li>
+     {% endif %}
+
+     {% if pics.has_next %}
+     <li class="page-item">
+      <a class="page-link" href="?page={{ pics.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+     </li>
+     {% endif %}
+    
+  </ul>
+</nav>
+</div>
+
+
+</div><!-- End of .page-container -->
+
+{% endblock  %}

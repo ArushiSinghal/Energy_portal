@@ -1,0 +1,22 @@
+{% extends 'talks/base.html' %}
+{% block content %}
+{% if not user.is_authenticated %}
+<p>First Login With your current credentials.</p>
+{% else %}
+        {% if Edit == 1 %}
+         <strong>Your Profile is Edited!</strong>
+        {% else %}
+        	<form id="user_form" method="post" 
+                enctype="multipart/form-data">
+                <div class="panel-heading">Edit Your Profile</div>
+            			{% csrf_token %}
+                                <div class="m-t-10">
+					 {{ user_form.as_p }}
+                                </div>
+                <div>
+		<center><input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Edit" /></center>
+		</div>
+        </form>
+        {% endif %}
+{% endif %}
+{% endblock %}

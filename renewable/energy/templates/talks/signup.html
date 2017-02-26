@@ -1,0 +1,49 @@
+{% extends 'talks/base.html' %}
+{% load staticfiles %}
+{% block extrastyles %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+<!-- .header-bottom-wrapper -->
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">Sign Up!...Let's START a new Tomorrow,Today.</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div><!-- End of .header-bottom-wrapper -->
+
+<div class="page-container container">
+
+        <div class="row">
+		 {% if user.is_authenticated %}	
+			<p>You first Logout</p>	
+		 {% else %}
+                {% if registered %}
+      		<strong>Thanku for joining us....</strong>
+        	<a href="{% url 'pressrelease_short' %}">Return to the homepage.</a><br />
+                {% else %}
+         		 <section id="contact-form">
+
+			    <div class="col-lg-6 col-md-6 col-sm-6">
+
+		    <form method="POST"  enctype="multipart/form-data" >{% csrf_token %}
+    			    {{ user_form.as_p }}
+    		    <button type="submit" class="save btn btn-default">Save</button>
+			    </form>
+			</div>
+			  </section>
+		{% endif %} 
+		{% endif  %}
+</div>
+</div>
+
+{% endblock %}

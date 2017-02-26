@@ -1,0 +1,220 @@
+{% extends 'talks/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">Calculate!...The Amount of Carbon.</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div><!-- End of .header-bottom-wrapper -->
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+
+<br>
+		       <h2>CONVERSION FOR TEXTBOOKS</h2>
+				<section  id="contact-form">
+
+                             <form id="user_form" method="post" action="/books/" enctype="multipart/form-data">
+               {% csrf_token %}
+               <label for="{{ book_form.softcover.id_for_label }}">Approximately how many soft cover books do you buy/quarter?:</label>
+                                {{  book_form.softcover }}
+               <br> 
+               <label for="{{  book_form.hardcover.id_for_label }}">Approximately how many hard cover books do you buy/quarter?  :</label>
+                                {{ book_form.hardcover }}
+               <br>
+               <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Register" />
+</form>
+
+         {% if val == 1 %}
+            <h3>    For {{softcover}} softcover and {{hardcover}} hardcover books the carbon released is {{carbon_year}} kg per year and {{carbon_day}} kg per day</h3>
+                         <div id="chart_div"></div>
+        {% endif  %}
+
+<br>
+</section>
+
+</div>
+<div class="col-md-6 col-md-offset-3">
+
+				<h2>CONVERSION FOR CLOTHING</h2>
+<section  id="contact-form">
+<form id="user_form" method="post" action="/clothing/"  enctype="multipart/form-data">
+               {% csrf_token %}
+               <label for="{{ cloth_form.clothing.id_for_label }}">How often buy a new article of clothing in a given month?</label>
+                                {{ cloth_form.clothing }}
+               <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Register" />
+</form>
+
+			{% if val1 == 1 %}
+              <h3>  For {{clothing}} new clothes the carbon released is {{carbon_year}} kg per year and {{carbon_day}} kg per day</h3>
+        {% endif  %}
+<br>
+</section>
+</div>
+<div class="col-md-6 col-md-offset-3">
+
+	        		<h2>CONVERSION FOR CELL PHONE</h2>
+<form id="user_form" method="post" enctype="multipart/form-data">
+               {% csrf_token %}
+    <label for="{{ phone_form.phoneduration.id_for_label }}">How long have you had your current cell phone.Please approximate in years.</label>
+                                {{ phone_form.phoneduration }}
+    <label for="{{ phone_form.phonetype.id_for_label }}">Do you own a:</label>
+                                {{ phone_form.phonetype }}
+    <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Register" />
+</form>
+	                  	<h2>CONVERSION FOR Ereader</h2>
+<form id="user_form" method="post" action="/ereader/" enctype="multipart/form-data">
+               {% csrf_token %}
+  <label for="{{ reader_form.e_reader_duration.id_for_label }}">How long have you had your current eReader.Please approximate in years.</label>
+                                {{ reader_form.e_reader_duration }}
+  <label for="{{ reader_form.readertype.id_for_label }}">Do you own a:</label>
+                                {{ reader_form.readertype }}
+  <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Register" />
+</form>
+			
+		  {% if val2 == 1 %}
+			  {% if readertype == 'ipad' %}
+                For {{readertype}} user the carbon released is {{carbon_year}} kg per year and {{carbon_day}} kg per day<br>
+		else the carbon released would be  {{carbon_year1}} kg per year and {{carbon_day1}} kg per day
+		
+			{% else %}
+	 For {{readertype}} user the carbon released is {{carbon_year1}} kg per year and {{carbon_day1}} kg per day<br>
+                else the carbon released would be  {{carbon_year}} kg per year and {{carbon_day}} kg per day
+{% endif  %}
+	<div id="chart_div"></div>
+{% endif  %}
+<br>
+<br>
+</div>
+<div class="col-md-6 col-md-offset-3">
+
+				<h2>CONVERSION FOR Transportation CAR</h2>
+<p>For ease of use we decided to categorize cars as small,average, SUV/truck, and hybrid. This way the user did not have to research their exact fuel efficiency. The user only had to approximate the number of miles driven in a give n month.This same tactic was used for bus travel and train travel.  The conversion for air travel is a little more complex in that we use the amount of CO2e /passengerkilometer and also multiply by a factor of 1.09 to account for the uplift factor. The uplift factor is taking into consideration non direct flights, delays, andcircling.</p>	
+		<form id="user_form" method="post" enctype="multipart/form-data">
+               			{% csrf_token %}
+         <label for="{{ transport_form.drivertype.id_for_label }}">Do you longboard, skateboard, or bike to class</label>
+                                {{ transport_form.drivertype }}
+               <label for="{{ transport_form.cartype.id_for_label }}">Do you own a car:</label>
+                                {{ transport_form.cartype }}
+
+<label for="{{ transport_form.milestravel.id_for_label }}">Approximately how many miles do you drive/month?
+Help link for Automobile Distances <a>https://www.google.co.in/maps/dir///@17.4488093,78.344397,15z</a></label>
+                                {{ transport_form.milestravel }}
+         <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Register" />
+	</form>
+
+					<h2>WATER</h2>
+<p>This water usage includes the water used for irrigation, fountains around campus, bathrooms, etc. In order to avoid double counting we subtracted out the average amount of water a full time student uses multiplied by the number of students living on campus. We then divided that total by the number of undergrad, grad, faculty, and staff that use the campus on a day to day basis. Then we multiplied by the appropriate weight given the status of the user. We then proceeded to calculate water from shower usage, toilet flushes, laundry, and hydration. We researched the kg CO2e it takes to filter and transport a gallon of water. After that we just had to look up how many gallons are used in one flush, how many gallons are used per minute of showering, how many gallons used per load of load of laundry.Then it was just a matter of multiplying the user responses to get the total gallons of water used times the carbon it takes per gallon.</p>
+
+				  <form id="user_form" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+         <label for="{{ water_form.studenttype.id_for_label }}">Choose from the following</label>
+                                {{ water_form.studenttype }}
+         <label for="{{ water_form.showers.id_for_label }}">On average how long are your showers?</label>
+                                {{ water_form.showers }}
+	 <label for="{{ water_form.showers_week.id_for_label }}">On average how many showers/week?</label>
+                                {{ water_form.showers_week }}
+         <label for="{{ water_form.laundry_month.id_for_label }}">On average howmany loads of laundry/month</label>
+                                {{ water_form.laundry_month }}
+
+<label for="{{ water_form.flushes_day.id_for_label }}">Average toilet flushes/day</label>
+                                {{ water_form.flushes_day }}
+<label for="{{ water_form.cup_day.id_for_label }}">Average cups of water you drink/day from tap or water fountain? </label>
+                                {{ water_form.cup_day }}
+<label for="{{ water_form.refillable.id_for_label }}">Do you use a refillable water bottle?</label>
+                                {{ water_form.refillable }}
+<label for="{{ water_form.non_fillable.id_for_label }}"> If you drink your water from nonrefillable plastic bottle, how many do you buy/week?</label>
+                                {{ water_form.non_fillable }}
+         <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Register" />
+        </form>
+
+					<h2>WASTE</h2>
+<form id="user_form" method="post" enctype="multipart/form-data">
+			  {% csrf_token %}
+ <label for="{{ waste_form.studenttype.id_for_label }}">Choose from the following:</label>
+                                {{ waste_form.studenttype }}
+               <label for="{{ waste_form.wastetype.id_for_label }}"> From the following scale decide how much of your waste is recycled (the average person recycles around 17% of their waste)</label>
+                                {{ waste_form.wastetype  }}
+<label for="{{ waste_form.quantitytype.id_for_label }}">From the following scale choose around how much trash you accumulate/day (a bag of sugar weighs 4 lbs. avg person accumulates 4lbs trash/day)</label>
+                                {{ waste_form.quantitytype }}
+               <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Register" />
+		</form>
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'carbon');
+	  data.addRows([
+          ['softcover', {{c}}],
+          ['hardcover', {{c1}}],
+        ]);
+		 var options = {'title':'carbon produced by {{softcover}} softcover books and {{hardcover}} hardcover books in a year in kg',
+                       'width':500,
+                       'height':300};
+        // Set chart options
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+		<script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'carbon');
+        data.addRows([
+          ['ipad', {{carbon_year}}],
+          ['kindle', {{carbon_year1}}],
+        ]);
+
+        // Set chart options
+        var options = {'title':'carbon produced by ipad and kindle in a year in kg',
+                       'width':500,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
+      }
+    </script>
+       </div>
+        </div>
+
+
+
+{% endblock %}

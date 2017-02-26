@@ -1,0 +1,102 @@
+
+{% extends 'talks/base.html' %}
+
+{% block content %}
+<!-- .header-bottom-wrapper -->
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+   <div class="quote">
+      <blockquote>
+        <p>It's not about IDEAS...It's  about making Ideas Happen.</p>
+                        <span class="author"><span class="line left"></span>SCOTT BELSKY<span class="line right"></span></span>
+        <!--span class="author"><span class="line left"></span> SCOTT BELSKY<span class="line right"></span></span-->
+      </blockquote>
+    </div>
+
+         <!--   <div class="page-head col-lg-12">
+                <h2 class="page-title">It's Not about IDEAS...It's  about making Ideas Happen.</h2>
+            </div> -->
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div><!-- End of .header-bottom-wrapper -->
+
+<div class="page-container container">
+
+        <div class="row">
+
+
+{% for talk in talks %}
+
+    <div class="col-lg-6 col-md-12  col-sm-12  col-xs-12">
+
+      <figure>
+      <br>
+                                  <a title="{{talk.title}}" href="#">
+
+      <img src="{{ talk.upload_image.url }}" class="candidate-image wp-post-image" alt="{{talk.title}}" width="100%" height="339.017px" />
+
+             </a>
+
+                              </figure>
+
+
+
+
+                            <div class="post-meta clearfix" style="background-color: #e8e9ef;padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+<center><h4 class="post-title" style="font-size:21px; font-weight: 700;align="center";" ><a href="#">{{talk.title|truncatechars_html:28}}</a></h4></center>
+                                <center><span>By</span> <a rel="author" title="Uploader" href="#">{{talk.uploader}}</a></center>
+
+
+                      
+
+                                <br>
+<a href="{% url 'talk_part' pk=talk.pk %}">Comments: {{ talk.approved_comments.count }}</a>
+<br>
+                                <p>{{talk.content|truncatechars:105}}</p>
+<a class="pp-btn grey" href="{% url 'talk_part' pk=talk.pk %}">Read More</a>
+                            </div><!-- end of post meta -->
+
+                </div>
+
+
+{% endfor %}
+
+</div>
+</div>
+
+<!-- NewCode For Pagination -->
+<!-- Replace your variables with "talks" -->
+
+
+<div style="width: 7%; margin: 0px auto;">
+<nav aria-label="...">
+  <ul class="pagination pagination-lg">
+   
+     {% if talks.has_previous %}
+      <li class="page-item">
+      <a class="page-link" href="?page={{ talks.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+      </li>
+     {% endif %}
+
+     {% if talks.has_next %}
+     <li class="page-item">
+      <a class="page-link" href="?page={{ talks.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+     </li>
+     {% endif %}
+    
+  </ul>
+</nav>
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,121 @@
+{% extends 'talks/base.html' %}
+
+
+
+{% block content %}
+<!-- .header-bottom-wrapper -->
+
+<div class="header-bottom-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- Page Head -->
+            <div class="page-head col-lg-12">
+                <h2 class="page-title">The secret of getting ahead is getting started.</h2>
+            </div>
+            <!-- End Page Head -->
+        </div>
+    </div>
+</div>
+<div class="page-container container">
+
+        <div class="row">
+{% if like == 0 %}
+
+<form  method="post" action="/like/{{talk.pk}}/"
+                enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="Like" />
+<strong>{{no_of_likes}}</strong>
+
+</form>
+{% comment  %}<a class="btn btn-default" href="{% url 'like' pk=talk.pk %}">Like</a>{% endcomment  %}
+
+
+{% else %}
+
+<form  method="post" action="/dislike/{{talk.pk}}/"
+                enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary m-t-10" id="submitbtn" name="submit" value="dislike" />
+<strong>{{no_of_likes}}</strong>
+
+</form>
+{% comment %}<a class="btn btn-default" href="{% url 'like' pk=talk.pk %}">Liked</a>{% endcomment   %}
+
+
+{% endif %}
+
+<img src="{{ talk.upload_image.url }}" class="alignleft candidate-image wp-post-image" alt="{{talk.title}}" width="260px" height="260px" />
+
+<div class="post-content-wrapper clearfix">
+         <p><strong>Title: </strong><a href="">{{talk.title}} </a></p>
+         <p><strong>Ideate: </strong>{{talk.uploader}} </p>
+      <div class="date">
+         <p><strong>Posted On: </strong>{{talk.date}} </p>
+      </div>
+
+               <p><strong>Idea: </strong>{{talk.content|linebreaksbr}} </p>
+
+
+            <p><strong>Bio of the Ideate: </strong>{{talk.bio|linebreaksbr}}</p>
+              <p><strong>Link: </strong>{{talk.link}}</p>
+
+</div>
+
+<iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A8000%2Ftalk%2F{{talk.pk}}%2Fpart%2F&layout=button&mobile_iframe=true&width=58&height=20&appId" width="58" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+
+{% url 'talk_part' pk=talk.pk as action_url %}
+
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<hr>
+<section id="comments">
+<h3 id="comments-title">({{ talk.approved_comments.count }})Comments</hr>
+ <ol class="commentlist">
+{% for comment in talk.comments.all %}
+    {% if comment.approved_comment or user.is_superuser %}
+<li class="comment even thread-even depth-1" id="li-comment-{{comment.pk}}">
+<article id="comment-{{comment.pk}}">
+    <!--<div class="comment">--><div class=":comment-detail-wrap">
+
+
+        <div class="comment-meta">
+       
+        <h5 class="author"><cite class="fn"><cite class="fn"><a href="#">{{ comment.author }}</a></cite></cite></h5>
+<a href="#"><time datetime="{{ comment.created_date }}">{{ comment.created_date }}</time></a>
+{% if not comment.approved_comment and user.is_superuser %}
+                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">Remove</a>
+                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">Ok</a>
+            {% endif %}
+       
+
+</div>
+        <div class="comment-body">
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+</article>
+</li>
+    {% endif %}
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+</ol>
+
+ <!--<h1>New comment</h1>-->
+
+<div id="respond" class="comment-respond">
+
+                <h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3>
+    <form method="POST" class="post-form" action="/articles/{{talk.pk}}/part/">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Send</button>
+    </form>
+</div>
+
+</section>
+</div>
+</div>
+
+
+{% endblock %}
