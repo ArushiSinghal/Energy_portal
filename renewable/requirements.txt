@@ -12,7 +12,7 @@ cryptography==1.2.3
 debtags==2.0
 defer==1.0.6
 dirspec==13.10
-Django==1.8.7
+Django==1.11.28
 django-celery==3.1.17
 django-twitter-bootstrap==3.3.0
 djangocms-admin-style==1.2.6
