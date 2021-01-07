@@ -27,7 +27,7 @@ kombu==3.0.37
 lazy-object-proxy==1.2.1
 lockfile==0.12.2
 logilab-common==1.1.0
-lxml==3.5.0
+lxml==4.6.2
 meld3==1.0.2
 ndg-httpsclient==0.4.0
 numpy==1.11.0
