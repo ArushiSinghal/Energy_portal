@@ -65,7 +65,7 @@ South==1.0
 sqlparse==0.1.18
 supervisor==3.2.0
 swampy==2.1.7
-Twisted==16.0.0
+Twisted==20.3.0
 twython==3.4.0
 ubuntuone-client-data==14.4
 unity-lens-photos==1.0
