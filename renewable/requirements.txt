@@ -34,7 +34,7 @@ numpy==1.11.0
 oauthlib==1.0.3
 oneconf==0.3.9
 PAM==0.4.2
-Pillow==3.1.2
+Pillow==9.0.0
 piston-mini-client==0.7.5
 py==1.4.31
 py2neo==3.1.2
