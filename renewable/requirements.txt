@@ -63,7 +63,7 @@ six==1.10.0
 software-center-aptd-plugins==0.0.0
 South==1.0
 sqlparse==0.1.18
-supervisor==3.2.0
+supervisor==3.2.4
 swampy==2.1.7
 Twisted==16.0.0
 twython==3.4.0
